@@ -1,4 +1,4 @@
-import os
+
 """
 Django settings for taskmaster project.
 
@@ -12,9 +12,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
+import dj_database_url
 env_path = os.path.join(os.path.dirname(__name__), 'env.py')
-if os.path.exists(env_path):
+if os.path.exists(env_path): 
     import env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -78,13 +79,15 @@ WSGI_APPLICATION = 'taskmaster.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#   'default': {
+#      'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
